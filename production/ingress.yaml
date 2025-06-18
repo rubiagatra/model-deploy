@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: fastapi-ingress
+  annotations:
+    # This annotation is important for some NGINX Ingress setups
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  # IMPORTANT: You can change this host to a domain you own.
+  # For testing without a domain, we will use the IP of the Ingress Load Balancer.
+  - host: kubernetes.dev.zero-one.cloud
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: fastapi-service # Must match the name of your service
+            port:
+              number: 80
+

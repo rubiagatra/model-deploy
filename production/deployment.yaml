@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fastapi-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: fastapi-app
+  template:
+    metadata:
+      labels:
+        app: fastapi-app
+    spec:
+      containers:
+      - name: fastapi-app-container
+        # IMPORTANT: Replace 'YOUR_DOCKERHUB_USERNAME' with your actual Docker Hub username
+        image: rubiagatra/fastapi-app:1.0
+        # This tells Kubernetes to always pull the image from the online registry
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+

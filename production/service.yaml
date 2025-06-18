@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: fastapi-service
+spec:
+  # ClusterIP makes the service only reachable from within the Kubernetes cluster.
+  # The Ingress controller will forward external traffic to this internal service.
+  type: ClusterIP
+  selector:
+    app: fastapi-app # This MUST match the labels in your deployment
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
