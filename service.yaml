@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: fastapi-service
+spec:
+  # This makes the service accessible from outside the cluster via the Node's IP/Port
+  type: NodePort
+  selector:
+    # This MUST match the labels in your deployment's template
+    app: fastapi
+  ports:
+    - protocol: TCP
+      # The port on the service itself
+      port: 80
+      # The port on the container that the service should send traffic to
+      targetPort: 80
