@@ -78,19 +78,21 @@ This command provides a URL (e.g., http://127.0.0.1:54321) and will stay active 
 
 ### Test the root endpoint
 ```
-export API_URL={URL_FROM_MINIKUBE_SERVICE}
+# Test the root endpoint
 curl $API_URL/
-# Expected Output: {"Hello":"World"}
+# Expected Output: {"message":"Welcome to the Iris Prediction API. Navigate to /docs for a full API specification."}
 
-# Test the GET item endpoint
-curl $API_URL/items/42?q=testquery
-# Expected Output: {"item_id":42,"q":"testquery"}
-
-# Test the PUT item endpoint
-curl -X PUT "$API_URL/items/42" \
+# Test the ML prediction endpoint
+# This example corresponds to an Iris Setosa flower
+curl -X POST "$API_URL/predict" \
 -H "Content-Type: application/json" \
--d '{"name": "My New Item", "price": 19.99}'
-# Expected Output: {"item_name":"My New Item","item_id":42}
+-d '{
+  "sepal_length": 5.1,
+  "sepal_width": 3.5,
+  "petal_length": 1.4,
+  "petal_width": 0.2
+}'
+# Expected Output: {"predicted_species":"setosa","predicted_class_id":0}
 ```
 
 ## Cleanup
